@@ -11,6 +11,7 @@ class Graphics():
         self.center_x = self.width // 2
         self.center_y = self.height // 2
         self.board = [[self.empty_space] * self.width for i in range(self.height)]    
+        self.buffer = [[self.empty_space] * self.width for i in range(self.height)]    
         self.angle = 0.0
 
 

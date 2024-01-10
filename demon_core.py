@@ -26,8 +26,7 @@ if __name__ == '__main__':
         square1.rotate(-1)
         os.system('clear')
         graphics.print_board()
-        graphics.clear_board()
-        # refresh rate
+        # 13.3 
         time.sleep(0.075)
 
 

@@ -25,6 +25,7 @@ if __name__ == '__main__':
         square.rotate(1)        
         square1.rotate(-1)
         graphics.print_board()
+        # refresh rate
         time.sleep(0.1)
         graphics.clear_board()
 

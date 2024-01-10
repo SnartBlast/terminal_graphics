@@ -1,5 +1,6 @@
 import sys
 import math
+import os
 
 class Graphics():
     def __init__(self, width=49, height=53):
@@ -149,7 +150,6 @@ class Graphics():
         ESC = '\x1b'
         ODD = '[48;5;234m'
         EVEN = '[48;5;235m'
-
         TEXT = '[38;5;46m'
         SINGLE = '[38;5;51m'
         OVERLAP = '[38;5;20m'
@@ -189,5 +189,5 @@ class Graphics():
                     screen += ESC + TEXT + ''
 
 #                screen += self.board[i][j]
-
+        os.system('clear')
         print(screen)

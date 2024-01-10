@@ -7,6 +7,8 @@ class Graphics():
         self.empty_space = '  '
         self.width = width
         self.height = height
+        self.center_x = width // 2
+        self.center_y = height // 2
         self.board = [[self.empty_space] * width for i in range(height)]    
         self.angle = 0.0
 
@@ -93,10 +95,10 @@ class Graphics():
     def draw_point_pixel(self, x, y):
         # draw point as pixel
         ESC = '\x1b'
-        if (self.board[round(y)][round(x)] == '..'):
-            self.board[round(y)][round(x)] = '::'
-        else:
+        if (self.board[round(y)][round(x)] == '::'):
             self.board[round(y)][round(x)] = '..'
+        else:
+            self.board[round(y)][round(x)] = '::'
 
 
 
@@ -145,8 +147,11 @@ class Graphics():
     def print_board(self):
         # define ansi escape codes
         ESC = '\x1b'
+        ODD = '[48;5;234m'
+        EVEN = '[48;5;235m'
+
         TEXT = '[38;5;46m'
-        SINGLE = '[38;5;15m'
+        SINGLE = '[38;5;51m'
         OVERLAP = '[38;5;20m'
 
         # print board with coordinates
@@ -170,14 +175,18 @@ class Graphics():
             screen += ' |'
 
             for j in range(self.width):
-
                 if (self.board[i][j] == '  '):
-                    screen += ESC + TEXT + self.board[i][j]
+                    if (j % 2 == 0):
+                        screen += ESC + ODD + self.board[i][j]
+                    else:
+                        screen += ESC + EVEN + self.board[i][j]
+                            
                 elif (self.board[i][j] == '::'):
                     screen += ESC + SINGLE + self.board[i][j]
+                    screen += ESC + TEXT + ''
                 else:
-                    screen += ESC + SINGLE + self.board[i][j]
-
+                    screen += ESC + OVERLAP + self.board[i][j]
+                    screen += ESC + TEXT + ''
 
 #                screen += self.board[i][j]
 

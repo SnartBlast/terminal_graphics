@@ -1,12 +1,12 @@
 from square import Square
 from graphics import Graphics
 import time
+import os
 
 if __name__ == '__main__':
     square = Square(25, 25, 13)
     square1 = Square(25, 25, 13)
     graphics = Graphics()
-    graphics1 = Graphics()
     count = 5
 
     while True:
@@ -24,10 +24,11 @@ if __name__ == '__main__':
 
         square.rotate(1)        
         square1.rotate(-1)
+        os.system('clear')
         graphics.print_board()
-        # refresh rate
-        time.sleep(0.1)
         graphics.clear_board()
+        # refresh rate
+        time.sleep(0.075)
 
 
 

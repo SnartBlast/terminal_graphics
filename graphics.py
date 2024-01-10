@@ -50,7 +50,7 @@ class Graphics():
 
         # if run is larger than rise
         if (absY < absX):
-            for i in range(int(startX), int(absX + startX)):
+            for i in range(round(startX), round(absX + startX)):
                 y = m * i + b
                 if (option == 0):
                     self.draw_point_line(i, y, degree)
@@ -59,7 +59,7 @@ class Graphics():
 
         # if rise if larger than run
         else:
-            for i in range(int(startY), int(absY + startY)):
+            for i in range(round(startY), round(absY + startY)):
                 x = (i / m) - (b / m)
                 if (option == 0):
                     self.draw_point_line(x, i, degree)
@@ -93,7 +93,11 @@ class Graphics():
     def draw_point_pixel(self, x, y):
         # draw point as pixel
         ESC = '\x1b'
-        self.board[round(y)][round(x)] = '::'
+        if (self.board[round(y)][round(x)] == '..'):
+            self.board[round(y)][round(x)] = '::'
+        else:
+            self.board[round(y)][round(x)] = '..'
+
 
 
     def draw_horizontal(self, x, y):
@@ -139,8 +143,14 @@ class Graphics():
 
    
     def print_board(self):
+        # define ansi escape codes
+        ESC = '\x1b'
+        TEXT = '[38;5;46m'
+        SINGLE = '[38;5;15m'
+        OVERLAP = '[38;5;20m'
+
         # print board with coordinates
-        screen = '    '
+        screen = ESC + TEXT + '    '
         for i in range(self.width):
             screen += str(i)
             if (i < 10):
@@ -160,6 +170,15 @@ class Graphics():
             screen += ' |'
 
             for j in range(self.width):
-                screen += self.board[i][j]
+
+                if (self.board[i][j] == '  '):
+                    screen += ESC + TEXT + self.board[i][j]
+                elif (self.board[i][j] == '::'):
+                    screen += ESC + SINGLE + self.board[i][j]
+                else:
+                    screen += ESC + SINGLE + self.board[i][j]
+
+
+#                screen += self.board[i][j]
 
         print(screen)

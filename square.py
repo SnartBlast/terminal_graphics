@@ -27,7 +27,7 @@ class Square():
         self.mag = self.mag * factor
 
 
-    def rotate(self, degree):
+    def rotate_z(self, degree):
         # second attempt at rotate
         magnitude = self.mag
 

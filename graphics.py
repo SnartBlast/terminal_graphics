@@ -7,8 +7,8 @@ class Graphics():
     def __init__(self, window_modifier=1):
         # initialize class
         self.empty_space = '  '
-        self.width = 49 * window_modifier
-        self.height = 55
+        self.width = round(49 * window_modifier)
+        self.height = round(55 * window_modifier)
         self.center_x = self.width // 2
         self.center_y = self.height // 2
         self.board = [[self.empty_space] * self.width for i in range(self.height)]    
@@ -23,7 +23,7 @@ class Graphics():
                 self.board[i][j] = self.empty_space
    
 
-    def draw_line(self, x1, y1, x2, y2, option):
+    def draw_line(self, x1, y1, x2, y2):
         # all given coordinates much be Integer value types
         x1 = round(x1)
         x2 = round(x2)

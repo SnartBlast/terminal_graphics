@@ -41,10 +41,10 @@ if __name__ == '__main__':
         # center tile
         graphics.draw_point_pixel(square.x, square.y)
 
-        square.rotate(degree / 2)
-        square1.rotate(-degree / 2)
-        square2.rotate(degree)
-        square3.rotate(-degree)
+        square.rotate_z(degree / 2)
+        square1.rotate_z(-degree / 2)
+        square2.rotate_z(degree)
+        square3.rotate_z(-degree)
 
 
         if (check):

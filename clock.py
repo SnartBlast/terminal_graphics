@@ -29,7 +29,7 @@ while (True):
     graphics.print_board()
     print(graphics.angle)
     time.sleep(0.09)
-    #graphics.clear_board()
+   # graphics.clear_board()
 
 
 

@@ -8,8 +8,6 @@ class Cube():
         self.y = y
         self.z = z
         # I think this is where my stuff is going wrong
-        self.mag = math.sqrt(pow(c, 2) * 3)
-        self.angle = 0
 
         # define all x coordinates
         self.x_verts = [x-c, x+c, x+c, x-c,
@@ -22,6 +20,13 @@ class Cube():
         # define all z coordinates
         self.z_verts = [z-c, z-c, z-c, z-c, 
                         z+c, z+c, z+c, z+c]
+
+        self.magnitude = math.sqrt(c * 3)
+
+        self.angle = 0
+
+
+
 
 
     def report(self):
@@ -60,72 +65,68 @@ class Cube():
             self.z_verts[i] = self.z_verts[i] + distance
 
 
-    def scale(self, factor):
-        # scale the size of the shape
-        self.mag = self.mag * factor
 
 
     def rotate_x(self, degree):
         # rotate about the y-axis
-        magnitude = self.mag
-
         for i in range(8):
-            # get distances
-            vert_y, vert_z = self.y_verts[i], self.z_verts[i]
-            dist_y = vert_y - self.y
-            dist_z = vert_z - self.z
+            # a --> sin
+            # b --> cos
+            # c^2 = a^2 + b^2
+            a = self.y_verts[i] - self.y 
+            b = self.z_verts[i] - self.z
+            c = math.sqrt(math.pow(a, 2) + math.pow(b, 2))
+            angle = math.degrees(math.atan2(b, a))
 
-            # find current angle
-            angle = math.degrees(math.atan2(dist_z, dist_y)) + degree
-            if (angle < 0):
-                angle += 360
+            # apply new angle
+            y = round(math.cos(math.radians(angle + degree)), 5) * c
+            z = round(math.sin(math.radians(angle + degree)), 5) * c
+            self.y_verts[i] = self.y + y
+            self.z_verts[i] = self.z + z
 
-            # apply new angle to vertices
-            new_y = self.y + (math.cos(math.radians(angle)) * magnitude)
-            new_z = self.z + (math.sin(math.radians(angle)) * magnitude)
-            self.y_verts[i] = new_y
-            self.z_verts[i] = new_z
 
 
     def rotate_y(self, degree):
         # rotate about the y-axis
-        magnitude = self.mag
-
         for i in range(8):
-            # get distances
-            vert_x, vert_z = self.x_verts[i], self.z_verts[i]
-            dist_x = vert_x - self.x
-            dist_z = vert_z - self.z
+            # a --> sin
+            # b --> cos
+            # c^2 = a^2 + b^2
+            a = self.z_verts[i] - self.z 
+            b = self.x_verts[i] - self.x
+            c = math.sqrt(math.pow(a, 2) + math.pow(b, 2))
+            angle = math.degrees(math.atan2(a, b))
 
-            # find current angle
-            angle = math.degrees(math.atan2(dist_z, dist_x)) + degree
-            if (angle < 0):
-                angle += 360
- 
-            # apply new angle to vertices
-            new_x = self.x + (math.cos(math.radians(angle)) * magnitude)
-            new_z = self.z + (math.sin(math.radians(angle)) * magnitude)
-            self.x_verts[i] = new_x
-            self.z_verts[i] = new_z
+            # apply new angle
+            x = round(math.cos(math.radians(angle + degree)), 5) * c
+            z = round(math.sin(math.radians(angle + degree)), 5) * c
+            self.x_verts[i] = self.x + x
+            self.z_verts[i] = self.z + z
 
 
+        
     def rotate_z(self, degree):
-        # rotate abuot the z-axix
-        magnitude = self.mag
-
+        # rotate about the y-axis
         for i in range(8):
-            # get distances
-            vert_x, vert_y = self.x_verts[i], self.y_verts[i]
-            dist_x = vert_x - self.x
-            dist_y = vert_y - self.y
+            # a --> sin
+            # b --> cos
+            # c^2 = a^2 + b^2
+            a = self.y_verts[i] - self.y 
+            b = self.x_verts[i] - self.x
+            c = math.sqrt(math.pow(a, 2) + math.pow(b, 2))
+            angle = math.degrees(math.atan2(a, b))
 
-            # find current angle
-            angle = math.degrees(math.atan2(dist_y, dist_x)) + degree
-            if (angle < 0):
-                angle += 360
- 
-            # apply new angle to vertices
-            new_x = self.x + (math.cos(math.radians(angle)) * magnitude)
-            new_y = self.y + (math.sin(math.radians(angle)) * magnitude)
-            self.x_verts[i] = new_x
-            self.y_verts[i] = new_y
+            # apply new angle
+            x = round(math.cos(math.radians(angle + degree)), 5) * c
+            y = round(math.sin(math.radians(angle + degree)), 5) * c
+            self.x_verts[i] = self.x + x
+            self.y_verts[i] = self.y + y
+
+
+
+
+
+
+
+
+

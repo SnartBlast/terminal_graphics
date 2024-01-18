@@ -20,7 +20,7 @@ while (True):
     endY = startY + math.sin(math.radians(degree)) * magnitude
     haveX.append(endX)
     haveY.append(endY)
-    graphics.draw_line(startX, startY, endX, endY, 0)
+    graphics.draw_line(startX, startY, endX, endY)
     graphics.draw_point_pixel(endX, endY)
 
     degree += 1

@@ -12,7 +12,8 @@ class Graphics():
         self.center_x = self.width // 2
         self.center_y = self.height // 2
         self.board = [[self.empty_space] * self.width for i in range(self.height)]    
-        self.buffer = [[self.empty_space] * self.width for i in range(self.height)]    
+        self.color = [[self.empty_space] * self.width for i in range(self.height)]    
+#        self.buffer = [[self.empty_space] * self.width for i in range(self.height)]    
         self.angle = 0.0
 
 
@@ -23,14 +24,14 @@ class Graphics():
                 self.board[i][j] = self.empty_space
    
 
-    def draw_line(self, x1, y1, x2, y2):
+    def draw_line(self, x1, y1, x2, y2, color):
         # all given coordinates much be Integer value types
         x1 = round(x1)
         x2 = round(x2)
         y1 = round(y1)
         y2 = round(y2)
-        self.draw_point_pixel(x1, y1)
-        self.draw_point_pixel(x2, y2)
+        self.draw_point_pixel(x1, y1, color)
+        self.draw_point_pixel(x2, y2, color)
         
         # find slope and angle for line
         m = 0
@@ -54,31 +55,38 @@ class Graphics():
         # draw completely vertical line
         if (x1 == x2):
             for i in range(y1, y2):
-                self.draw_point_pixel(x1, i)
+                self.draw_point_pixel(x1, i, color)
             for i in range(y2, y1):
-                self.draw_point_pixel(x1, i)
+                self.draw_point_pixel(x1, i, color)
             return
 
         # if run is larger than rise
         elif (absY < absX):
             for i in range(round(startX), round(absX + startX)):
                 y = m * i + b
-                self.draw_point_pixel(i, y)
+                self.draw_point_pixel(i, y, color)
 
         # if rise if larger than run
         else:
             for i in range(round(startY), round(absY + startY)):
                 x = (i / m) - (b / m)
-                self.draw_point_pixel(x, i)
+                self.draw_point_pixel(x, i, color)
 
 
-    def draw_point_pixel(self, x, y):
+    def draw_point_pixel(self, x, y, color='[48;5;53m'):
         # draw point as pixel
+        self.board[round(y)][round(x)] = '::'
+        self.color[round(y)][round(x)] = color
+
+        
+
+        """
         ESC = '\x1b'
         if (self.board[round(y)][round(x)] == '::'):
             self.board[round(y)][round(x)] = '..'
         else:
             self.board[round(y)][round(x)] = '::'
+        """
 
    
     def print_board(self):
@@ -87,8 +95,6 @@ class Graphics():
         ODD = '[48;5;234m'
         EVEN = '[48;5;235m'
         TEXT = '[38;5;46m'
-        SINGLE = '[48;5;53m'
-        OVERLAP = '[48;5;54m'
 
         # print board with coordinates
         screen = ESC + TEXT + '    '
@@ -118,7 +124,7 @@ class Graphics():
                         screen += ESC + EVEN + self.board[i][j]
                             
                 elif (self.board[i][j] == '::'):
-                    screen += ESC + SINGLE + '  '
+                    screen += ESC + self.color[i][j] + '  '
                     screen += ESC + TEXT + ''
                 else:
                     screen += ESC + OVERLAP + '  '

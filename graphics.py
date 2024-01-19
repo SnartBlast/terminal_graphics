@@ -1,4 +1,4 @@
-import sy
+import sys
 import math
 import os
 import time
@@ -83,7 +83,7 @@ class Graphics():
 
    
     def print_board(self):
-        # render all lines 
+        # render all lines from buffer
         for i in range(len(self.buffer)):
             self.draw_line(self.buffer[i][1], self.buffer[i][2], 
                            self.buffer[i][3], self.buffer[i][4],
@@ -122,7 +122,7 @@ class Graphics():
                         screen += ESC + ODD + self.board[i][j]
                     else:
                         screen += ESC + EVEN + self.board[i][j]
-                            
+        
                 elif (self.board[i][j] == '::'):
                     screen += ESC + self.color[i][j] + '  '
                     screen += ESC + TEXT + ''

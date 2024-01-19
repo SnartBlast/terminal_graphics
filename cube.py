@@ -7,26 +7,16 @@ class Cube():
         self.x = x
         self.y = y
         self.z = z
-        # I think this is where my stuff is going wrong
+        self.scale = 1.0
 
         # define all x coordinates
-        self.x_verts = [x-c, x+c, x+c, x-c,
-                        x-c, x+c, x+c, x-c]
+        self.x_verts = [x-c, x+c, x+c, x-c, x-c, x+c, x+c, x-c]
 
         # define all y coordinates
-        self.y_verts = [y+c, y+c, y-c, y-c,
-                        y+c, y+c, y-c, y-c]
+        self.y_verts = [y+c, y+c, y-c, y-c, y+c, y+c, y-c, y-c]
 
         # define all z coordinates
-        self.z_verts = [z-c, z-c, z-c, z-c, 
-                        z+c, z+c, z+c, z+c]
-
-        self.magnitude = math.sqrt(c * 3)
-
-        self.angle = 0
-
-
-
+        self.z_verts = [z-c, z-c, z-c, z-c, z+c, z+c, z+c, z+c]
 
 
     def report(self):
@@ -65,6 +55,9 @@ class Cube():
             self.z_verts[i] = self.z_verts[i] + distance
 
 
+    def scale_shape(self, value):
+        # scale cube by value 
+        self.scale = value
 
 
     def rotate_x(self, degree):
@@ -75,7 +68,7 @@ class Cube():
             # c^2 = a^2 + b^2
             a = self.y_verts[i] - self.y 
             b = self.z_verts[i] - self.z
-            c = math.sqrt(math.pow(a, 2) + math.pow(b, 2))
+            c = math.sqrt(math.pow(a, 2) + math.pow(b, 2)) * self.scale
             angle = math.degrees(math.atan2(b, a))
 
             # apply new angle
@@ -121,12 +114,3 @@ class Cube():
             y = round(math.sin(math.radians(angle + degree)), 5) * c
             self.x_verts[i] = self.x + x
             self.y_verts[i] = self.y + y
-
-
-
-
-
-
-
-
-

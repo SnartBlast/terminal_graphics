@@ -3,11 +3,10 @@ from graphics import Graphics
 import time
 import os
 
-
 if __name__ == '__main__':
     graphics = Graphics(1.0)
-    cube = Cube(25, 25, 0, 10)
-    
+    cube = Cube(24, 26, -10, 10)
+
     while True: 
         # front lines
         line0 = ((cube.z_verts[0] + cube.z_verts[1]) / 2, 
@@ -76,11 +75,12 @@ if __name__ == '__main__':
         graphics.add_line(line9)
         graphics.add_line(line10)
         graphics.add_line(line11)
+        # center pixel
+        graphics.add_line((-5, 24, 26, 24, 26, '[48;5;121m'))
 
         # perform shape and graphics functions
-        cube.rotate_x(2)
+        cube.rotate_x(1)
         cube.rotate_y(3)
-        cube.rotate_z(-1)
+        cube.rotate_z(5)
         graphics.print_board()
-        #graphics.clear_board()
         time.sleep(0.1)

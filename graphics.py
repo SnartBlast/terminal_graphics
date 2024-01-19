@@ -1,4 +1,4 @@
-import sys
+import sy
 import math
 import os
 import time
@@ -6,15 +6,11 @@ import time
 class Graphics():
     def __init__(self, window_modifier=1):
         # initialize class
-        self.empty_space = '  '
         self.width = round(49 * window_modifier)
         self.height = round(55 * window_modifier)
-        self.center_x = self.width // 2
-        self.center_y = self.height // 2
-        self.board = [[self.empty_space] * self.width for i in range(self.height)]    
-        self.color = [[self.empty_space] * self.width for i in range(self.height)]    
+        self.board = [['  '] * self.width for i in range(self.height)]    
+        self.color = [['  '] * self.width for i in range(self.height)]    
         self.buffer = []
-        self.angle = 0.0
 
 
     def add_line(self, toople):
@@ -28,7 +24,7 @@ class Graphics():
         self.buffer = []
         for i in range(self.height):
             for j in range(self.width):
-                self.board[i][j] = self.empty_space
+                self.board[i][j] = '  '
    
 
     def draw_line(self, x1, y1, x2, y2, color):
@@ -80,7 +76,7 @@ class Graphics():
                 self.draw_point_pixel(x, i, color)
 
 
-    def draw_point_pixel(self, x, y, color='[48;5;53m'):
+    def draw_point_pixel(self, x, y, color):
         # draw point as pixel
         self.board[round(y)][round(x)] = '::'
         self.color[round(y)][round(x)] = color
@@ -108,17 +104,17 @@ class Graphics():
                 screen += ' '  
 
         # draw X coordinates
-        screen += '\n    '
-        for i in range(self.width):
-            screen += ESC + BORDER + '--'
+        screen += '\n  '
+        for i in range(self.width + 1):
+            screen += ESC + TEXT + '=='
 
         # draw Y coordinates
         for i in range(self.height):
-            screen += '\n' 
+            screen += '\n'
             screen += str(i)
             if (i < 10):
                 screen += ' '  
-            screen += ESC + BORDER + ' |'
+            screen += ESC + TEXT + '||'
 
             for j in range(self.width):
                 if (self.board[i][j] == '  '):

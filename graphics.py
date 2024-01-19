@@ -13,12 +13,19 @@ class Graphics():
         self.center_y = self.height // 2
         self.board = [[self.empty_space] * self.width for i in range(self.height)]    
         self.color = [[self.empty_space] * self.width for i in range(self.height)]    
-#        self.buffer = [[self.empty_space] * self.width for i in range(self.height)]    
+        self.buffer = []
         self.angle = 0.0
+
+
+    def add_line(self, toople):
+        # add tuple to buffer
+        self.buffer.append(toople)
+        self.buffer = sorted(self.buffer, reverse=True)
 
 
     def clear_board(self):
         # clear the board
+        self.buffer = []
         for i in range(self.height):
             for j in range(self.width):
                 self.board[i][j] = self.empty_space
@@ -78,23 +85,20 @@ class Graphics():
         self.board[round(y)][round(x)] = '::'
         self.color[round(y)][round(x)] = color
 
-        
-
-        """
-        ESC = '\x1b'
-        if (self.board[round(y)][round(x)] == '::'):
-            self.board[round(y)][round(x)] = '..'
-        else:
-            self.board[round(y)][round(x)] = '::'
-        """
-
    
     def print_board(self):
+        # render all lines 
+        for i in range(len(self.buffer)):
+            self.draw_line(self.buffer[i][1], self.buffer[i][2], 
+                           self.buffer[i][3], self.buffer[i][4],
+                           self.buffer[i][5])
+        
         # define ansi escape codes
         ESC = '\x1b'
         ODD = '[48;5;234m'
         EVEN = '[48;5;235m'
         TEXT = '[38;5;46m'
+        BORDER = '[48;5;46m'
 
         # print board with coordinates
         screen = ESC + TEXT + '    '
@@ -106,7 +110,7 @@ class Graphics():
         # draw X coordinates
         screen += '\n    '
         for i in range(self.width):
-            screen += '--'
+            screen += ESC + BORDER + '--'
 
         # draw Y coordinates
         for i in range(self.height):
@@ -114,7 +118,7 @@ class Graphics():
             screen += str(i)
             if (i < 10):
                 screen += ' '  
-            screen += ' |'
+            screen += ESC + BORDER + ' |'
 
             for j in range(self.width):
                 if (self.board[i][j] == '  '):
@@ -131,3 +135,4 @@ class Graphics():
                     screen += ESC + TEXT + ''
 
         print(screen)
+        self.clear_board()

@@ -130,5 +130,7 @@ class Graphics():
                     screen += ESC + OVERLAP + '  '
                     screen += ESC + TEXT + ''
 
+        screen += ESC + '\n'
+
         print(screen)
         self.clear_board()

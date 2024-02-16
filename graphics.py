@@ -82,7 +82,7 @@ class Graphics():
         self.color[round(y)][round(x)] = color
 
    
-    def print_board(self):
+    def print_board(self, option=0):
         # render all lines from buffer
         for i in range(len(self.buffer)):
             self.draw_line(self.buffer[i][1], self.buffer[i][2], 
@@ -133,4 +133,5 @@ class Graphics():
         screen += ESC + '\n'
 
         print(screen)
-        self.clear_board()
+        if (option == 0):
+            self.clear_board()

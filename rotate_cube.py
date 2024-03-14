@@ -7,14 +7,14 @@ import os
 
 if __name__ == '__main__':
     graphics = Graphics(0.97)
-    cube = Cube(24, 26, -10, 10)
+    cube = Cube(24, 26, -10, 13)
 
     while True: 
         # front lines
         line0 = ((cube.z_verts[0] + cube.z_verts[1]) / 2, 
                   cube.x_verts[0], cube.y_verts[0],
                   cube.x_verts[1], cube.y_verts[1],
-                  '[48;5;57m')
+                  '[48;5;156m')
         line1 = ((cube.z_verts[1] + cube.z_verts[2]) / 2, 
                   cube.x_verts[1], cube.y_verts[1],
                   cube.x_verts[2], cube.y_verts[2],
@@ -78,46 +78,40 @@ if __name__ == '__main__':
         graphics.add_line(line10)
         graphics.add_line(line11)
         # center pixel
-
-
+ 
 
         # KEYBOARD INPUTS
         # keyboard input a
         if keyboard.is_pressed("a"):
             cube.rotate_y(-7)
-            #graphics.print_board()
-            #time.sleep(0.08)
 
         # keyboard input d
         elif keyboard.is_pressed("d"):
             cube.rotate_y(7)
-            #graphics.print_board()
-            #time.sleep(0.08)
 
         # keyboard input w
         elif keyboard.is_pressed("w"):
             cube.rotate_x(-7)
-            #graphics.print_board()
-            #time.sleep(0.08)
     
         # keyboard input s
         elif keyboard.is_pressed("s"):
             cube.rotate_x(7)
-            #graphics.print_board()
-            #time.sleep(0.08)
-
 
         elif keyboard.is_pressed("q"):
             cube.rotate_z(-7)
-            #graphics.print_board()
-            #time.sleep(0.08)
 
         elif keyboard.is_pressed("e"):
             cube.rotate_z(7)
-            #graphics.print_board()
-            #time.sleep(0.08)
 
-        time.sleep(0.1)
+        else:
+            '''
+            cube.rotate_x(1.5)
+            cube.rotate_y(1)
+            cube.rotate_z(-0.5)
+            '''
+            cube.rotate_z(0)
+
+        time.sleep(0.09)
         graphics.print_board()
  
 

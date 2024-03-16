@@ -21,12 +21,13 @@ class Paint():
         self.canvas = [['  '] * self.width for i in range(self.height)] 
         self.cursor = [width // 2, height // 2]
         self.curr_color = '213m' 
+        self.cursor_color = '255m'
+        self.get_timer = 0
 
         # preview data
         self.preview_cursor = [width // 2, height // 2]
         self.preview_color = '26m'
         self.show_preview = False
-        self.get_timer = 0
 
         # file and settings data
         self.file_name = ''
@@ -77,9 +78,8 @@ class Paint():
         # define ansi espape codes
         ESC = '\x1b'
         BEGIN =  '[48;5;'
-        CURSOR = '[38;5;231m'
         screen = ''
-        screen += ESC + CURSOR
+        screen += ESC + self.cursor_color
 
         # get preview coords
         x = self.preview_cursor[0]
@@ -143,7 +143,6 @@ class Paint():
             
             for j, item in enumerate(line):
                 self.board[i][j] = item
-         
 
         
     def write_file(self, file_name):
@@ -202,7 +201,13 @@ class Paint():
 
 if __name__ == '__main__':
 
-    paint = Paint() 
+    width = 51
+    height = 57
+
+    if (len(sys.argv) == 2):
+        width = 105
+
+    paint = Paint(width, height) 
     game_loop = True
 
     # begin game loop
@@ -311,6 +316,12 @@ if __name__ == '__main__':
         if keyboard.is_pressed("f"):
             if (paint.setting != 'c'):
                 paint.fill(paint.cursor[0], paint.cursor[1], paint.curr_color, 0)
+
+
+        # change cursor color
+        if keyboard.is_pressed("b"):
+            paint.cursor_color = paint.get_color()
+             
             
         ################################################################
     
@@ -324,7 +335,7 @@ if __name__ == '__main__':
             print('\n  Enter Selection: ', end='')
             option = input()
             
-            if (option == ':0'):
+            if (option == '0' or option == ':0'):
                 # display files and get input 
                 # I got this next line from stack overflow btw! No credit for this plz!
                 files = [f for f in os.listdir('.') if os.path.isfile(f)]
@@ -341,7 +352,7 @@ if __name__ == '__main__':
                 paint.read_file(file_list[option])
 
 
-            elif (option == ':1'):
+            elif (option == '1' or option == ':1'):
                 # write file
                 if (paint.file_name != ''):
                     paint.write_file(f'{paint.file_name}')
@@ -353,12 +364,8 @@ if __name__ == '__main__':
                 print('\n\nFILE SUCCESSFULLY SAVED\n')
                 time.sleep(1)
 
-            elif (option == ':2'):
+            elif (option == '2' or option == ':2'):
                 # write file
                 print('\nEnter File Name: ', end='')
                 file_name = input()
                 paint.write_file(f'{file_name}')
-
-
-
-

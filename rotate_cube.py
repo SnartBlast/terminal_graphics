@@ -7,9 +7,26 @@ import os
 
 if __name__ == '__main__':
     graphics = Graphics(0.97)
-    cube = Cube(24, 26, -10, 13)
+    cube = Cube(23, 26, -10, 13)
+
+    check_z = True
+    z = 1.5
 
     while True: 
+        # change z coordinate
+        if (check_z):
+            if (z < 2.5):
+                z += 0.05
+            else:
+                check_z = False
+
+        else:
+            if (z > - 2.5):
+                z -= 0.05
+            else:
+                check_z = True
+
+
         # front lines
         line0 = ((cube.z_verts[0] + cube.z_verts[1]) / 2, 
                   cube.x_verts[0], cube.y_verts[0],
@@ -104,12 +121,9 @@ if __name__ == '__main__':
             cube.rotate_z(7)
 
         else:
-            '''
-            cube.rotate_x(1.5)
+            cube.rotate_x(0.5)
             cube.rotate_y(1)
-            cube.rotate_z(-0.5)
-            '''
-            cube.rotate_z(0)
+            cube.rotate_z(z)
 
         time.sleep(0.09)
         graphics.print_board()

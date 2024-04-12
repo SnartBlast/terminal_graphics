@@ -2,11 +2,13 @@ import sys
 import math
 
 class Graphics():
-    def __init__(self, width=49, height=55):
+    def __init__(self, width=49, height=54, background='235', accent='2'):
         # initialize class
         self.width = width
         self.height = height
-        self.board = [['235'] * self.width for i in range(self.height)]    
+        self.background_color = background
+        self.accent_color = accent
+        self.board = [[self.background_color] * self.width for i in range(self.height)]    
         self.buffer = []
 
         # remove default recursion limit
@@ -109,7 +111,7 @@ class Graphics():
         self.buffer = []
         for i in range(self.height):
             for j in range(self.width):
-                self.board[i][j] = '235'
+                self.board[i][j] = self.background_color
 
 
     def print(self, option=0):
@@ -140,29 +142,42 @@ class Graphics():
         # print the board    
         ESC = '\x1b'
         TEXT = '[38;5;247m'
-        NUMBER = '[48;5;238m'
+        SHAPE = f'[38;5;{self.accent_color}m'
+        NUMBER = '[48;5;237m'
         BORDER = '[48;5;130m' 
         screen = ESC + TEXT + ''
         screen += ESC + NUMBER + '     '
-        for i in range(self.width):
+        for i in range(self.width - 1):
             screen += str(i)
             if (i < 10):
                 screen += ' '
-        screen += '\n  '
+        screen += '  \n   '
         for i in range(self.width + 1):
             screen += ESC + BORDER + '  '
     
         for i in range(self.height):
-            screen += ESC + NUMBER + f'\n{str(i)}'
+            screen += ESC + NUMBER + f'\n{str(i)} '
             if (i < 10):
                 screen += ' '
             screen += ESC + BORDER + '  '
 
             # DRAW SCREEN
             #-----------------------------------------------------------------
-            for j in range(self.width):
-                
-                screen += ESC + '[48;5;' + self.board[i][j] + 'm  '
-                
+            for j in range(self.width - 1):
+                if (self.board[i][j] != self.background_color):
+                    # if we're rendering a shape
+                    screen += ESC + SHAPE + ''
+                    screen += ESC + '[48;5;' + self.board[i][j] + 'm††'
+                else:
+                    # if we're rendering background
+                    screen += ESC + TEXT + ''
+                    screen += ESC + '[48;5;' + self.board[i][j] + 'm  '                
             #-----------------------------------------------------------------
+                if (j == self.width - 2):
+                    screen += ESC + BORDER + '  '
+            if (i == self.height - 1):
+                screen += ESC + NUMBER + '   '
+                for k in range(self.width + 1):
+                    screen += ESC + BORDER + '  '
+
         print(screen) 

@@ -23,6 +23,7 @@ class Paint():
         self.curr_color = '213m' 
         self.cursor_color = '255m'
         self.get_timer = 0
+        sys.setrecursionlimit(10**6)
 
         # preview data
         self.preview_cursor = [width // 2, height // 2]
@@ -205,7 +206,11 @@ if __name__ == '__main__':
     height = 57
 
     if (len(sys.argv) == 2):
-        width = 105
+        if (sys.argv[1] != 1):
+            width = 105
+        else:
+            width = 140
+            height = 82
 
     paint = Paint(width, height) 
     game_loop = True

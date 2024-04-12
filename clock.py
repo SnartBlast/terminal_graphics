@@ -26,8 +26,8 @@ while (True):
     degree += 2
     degree = degree % 360
 
-    graphics.print_board()
-    print(graphics.angle)
+    graphics.print_board(1)
+    #print(graphics.angle)
     time.sleep(0.09)
    # graphics.clear_board()
 

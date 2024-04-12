@@ -11,12 +11,51 @@ class Graphics():
         self.board = [['  '] * self.width for i in range(self.height)]    
         self.color = [['  '] * self.width for i in range(self.height)]    
         self.buffer = []
+        sys.setrecursionlimit(10**6)
 
 
     def add_line(self, toople):
         # add tuple to buffer
         self.buffer.append(toople)
         self.buffer = sorted(self.buffer, reverse=True)
+
+
+    def add_side(self, side, color):
+        # add a series of line tuples to the buffer
+        # from point 0, draw a series of lines between point 1 and point 2
+        self.add_line((0, side[0], side[1], side[2], side[3], color))       
+        self.add_line((0, side[2], side[3], side[4], side[5], color))       
+        self.add_line((0, side[0], side[1], side[4], side[5], color))       
+
+        center_x = round((side[0] + side[2] + side[4]) / 3) + 1
+        center_y = round((side[1] + side[3] + side[4]) / 3) + 1
+
+        print(center_x)
+        print(center_y)
+    
+        self.draw_point_pixel(center_x, center_y, color)
+        self.fill_side(center_y, center_x, color, 0)
+    
+
+    def fill_side(self, y, x, color, count):
+        # recursively fill within the lines
+        if (count > 5):
+            return
+        if (x < 0 or x > self.width + 1):
+            return 
+        if (y < 0 or y > self.height + 1):
+            return 
+        self.draw_point_pixel(x, y, color)
+        
+        if (self.color[y - 1][x] != color):
+            self.fill_side(y - 1, x, color, count+1)
+        if (self.color[y + 1][x] != color):
+            self.fill_side(y + 1, x, color, count+1)
+        if (self.color[y][x - 1] != color):
+            self.fill_side(y, x - 1, color, count+1)
+        if (self.color[y][x + 1] != color):
+            self.fill_side(y, x + 1, color, count+1)
+
 
 
     def clear_board(self):
@@ -116,6 +155,7 @@ class Graphics():
                 screen += ' '  
             screen += ESC + TEXT + '||'
 
+
             for j in range(self.width):
                 if (self.board[i][j] == '  '):
                     if (j % 2 == 0):
@@ -124,7 +164,8 @@ class Graphics():
                         screen += ESC + EVEN + self.board[i][j]
         
                 elif (self.board[i][j] == '::'):
-                    screen += ESC + self.color[i][j] + '  '
+                    screen += ESC + '[38;5;3m' + ''
+                    screen += ESC + self.color[i][j] + '††'
                     screen += ESC + TEXT + ''
                 else:
                     screen += ESC + OVERLAP + '  '

@@ -18,6 +18,27 @@ class Cube():
         # define all z coordinates
         self.z_verts = [z-c, z-c, z-c, z-c, z+c, z+c, z+c, z+c]
 
+        # Cube Vertices Visualization
+        #
+        #             _-7---------------6
+        #          _-¯  |           _-¯ |
+        #       _-¯     |        _-¯    |
+        #      3----------------2       |
+        #      |        |       |       |
+        #      |        |       |       |
+        #      |        |       |       |
+        #      |        |       |       |
+        #      |      _-4-------|-------5
+        #      |   _-¯          |   _-¯ 
+        #      |_-¯             |_-¯
+        #      0----------------1
+            
+
+        
+
+
+
+
 
     def report(self):
         # print vertices

@@ -11,8 +11,8 @@ if __name__ == '__main__':
 
     while True:
         count += 1
-        if (count % 30 == 0):
-            kiwi.smooth()
+        #if (count % 30 == 0):
+        #    kiwi.smooth()
 
         kiwi.sharpen(0.0025)
         kiwi.grain(0.01)

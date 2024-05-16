@@ -32,13 +32,7 @@ class Cube():
         #      |   _-¯          |   _-¯ 
         #      |_-¯             |_-¯
         #      0----------------1
-            
-
         
-
-
-
-
 
     def report(self):
         # print vertices

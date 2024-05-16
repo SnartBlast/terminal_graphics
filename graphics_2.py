@@ -2,7 +2,7 @@ import sys
 import math
 
 class Graphics():
-    def __init__(self, width=49, height=54, background='235', accent='2'):
+    def __init__(self, width=49, height=54, background='235', accent='214'):
         # initialize class
         self.width = width
         self.height = height
@@ -25,24 +25,43 @@ class Graphics():
         # fill in space between 3 points
         center_x = round((x1 + x2 + x3) / 3)
         center_y = round((y1 + y2 + y3) / 3)
+        range_x = max([x1, x2, x3]) - min([x1, x2, x3])
+        range_y = max([y1, y2, y3]) - min([y1, y2, y3])
 
+        # round coordinate variables
+        x1 = round(x1)
+        x2 = round(x2)
+        x3 = round(x3)
+        y1 = round(y1)
+        y2 = round(y2)
+        y3 = round(y3)
+        
         # draw border lines and fill
         self.draw_line(x1, y1, x2, y2, color)
         self.draw_line(x2, y2, x3, y3, color)
         self.draw_line(x1, y1, x3, y3, color) 
-        self.fill(center_x, center_y, color)
+
+        if (not self.detect_inline(x1, y1, x2, y2, x3, y3)):
+            self.fill(center_x, center_y, color)
         self.draw_line(x1, y1, center_x, center_y, color)
         self.draw_line(x2, y2, center_x, center_y, color)
         self.draw_line(x3, y3, center_x, center_y, color)
+#        self.draw_pixel(center_x, center_y, 16)
 
 
+    def detect_inline(self, x1, y1, x2, y2, x3, y3):
+        # detect if all three points are in a line to prevent recursive overflow
+        return (y1 - y2) * (x1 - x3) == (y1 - y3) * (x1 - x2)
+
+#        print('detect_inline HERE') 
+        
+
+    
     def fill(self, x, y, color):
         # recursively fill polygon
-        #try:
         if (self.board[y][x] == color):
             return 
 
-        #except:
         self.draw_pixel(x, y, color)
         if (x - 1 > 0):
             self.fill(x - 1, y, color)
@@ -103,7 +122,7 @@ class Graphics():
 
     def draw_pixel(self, x, y, color):
         # draw point as pixel on board
-        self.board[round(y)][round(x)] = color
+        self.board[round(y)][round(x)] = str(color)
 
 
     def clear(self):
@@ -134,7 +153,6 @@ class Graphics():
             if (len(item) == 8):
                 # draw line
                 self.draw_line(item[1], item[2], item[4], item[5], item[7])                
-
             else:
                 # draw polygon
                 self.draw_polygon(item[1], item[2], item[4], item[5], item[7], item[8], item[10])
@@ -167,7 +185,8 @@ class Graphics():
                 if (self.board[i][j] != self.background_color):
                     # if we're rendering a shape
                     screen += ESC + SHAPE + ''
-                    screen += ESC + '[48;5;' + self.board[i][j] + 'm††'
+#                    screen += ESC + '[48;5;' + self.board[i][j] + 'm††'
+                    screen += ESC + '[48;5;' + self.board[i][j] + 'm  '
                 else:
                     # if we're rendering background
                     screen += ESC + TEXT + ''

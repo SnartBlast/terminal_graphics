@@ -1,14 +1,12 @@
 
 from cube import Cube
 from graphics_2 import Graphics
-import keyboard
 import getpass
 import time
 import os
 
 if __name__ == '__main__':
-    graphics = Graphics(75, 78, '234', '11')
-    #cube = Cube(23, 27, 0, 13)    
+    graphics = Graphics(75, 78, '234', '214')
     cube = Cube(37, 39, 0, 18)
 
     check_z = True
@@ -34,60 +32,60 @@ if __name__ == '__main__':
                   cube.x_verts[0], cube.y_verts[0], cube.z_verts[0],
                   cube.x_verts[1], cube.y_verts[1], cube.z_verts[1],
                   cube.x_verts[2], cube.y_verts[2], cube.z_verts[2],
-                  '208')
+                  '34')
         tri1 = ((cube.z_verts[0] + cube.z_verts[2] + cube.z_verts[3] + cube.z_verts[1]) / 4,
                   cube.x_verts[0], cube.y_verts[0], cube.z_verts[0],
                   cube.x_verts[2], cube.y_verts[2], cube.z_verts[2],
                   cube.x_verts[3], cube.y_verts[3], cube.z_verts[3],
-                  '208')
+                  '34')
 
         # back face
         tri2 = ((cube.z_verts[4] + cube.z_verts[5] + cube.z_verts[6] + cube.z_verts[7]) / 4,
                   cube.x_verts[4], cube.y_verts[4], cube.z_verts[4],
                   cube.x_verts[5], cube.y_verts[5], cube.z_verts[5],
                   cube.x_verts[7], cube.y_verts[7], cube.z_verts[7],
-                  '173')
+                  '51')
         tri3 = ((cube.z_verts[4] + cube.z_verts[5] + cube.z_verts[6] + cube.z_verts[7]) / 4,
                   cube.x_verts[5], cube.y_verts[5], cube.z_verts[5],
                   cube.x_verts[6], cube.y_verts[6], cube.z_verts[6],
                   cube.x_verts[7], cube.y_verts[7], cube.z_verts[7],
-                  '173')
+                  '51')
 
         # right face
         tri4 = ((cube.z_verts[1] + cube.z_verts[2] + cube.z_verts[5] + cube.z_verts[6]) / 4,
                   cube.x_verts[1], cube.y_verts[1], cube.z_verts[1],
                   cube.x_verts[2], cube.y_verts[2], cube.z_verts[2],
                   cube.x_verts[6], cube.y_verts[6], cube.z_verts[6],
-                  '138')
+                  '15')
         tri5 = ((cube.z_verts[1] + cube.z_verts[2] + cube.z_verts[5] + cube.z_verts[6]) / 4,
                   cube.x_verts[1], cube.y_verts[1], cube.z_verts[1],
                   cube.x_verts[5], cube.y_verts[5], cube.z_verts[5],
                   cube.x_verts[6], cube.y_verts[6], cube.z_verts[6],
-                  '138')
+                  '15')
 
         # left face
         tri6 = ((cube.z_verts[0] + cube.z_verts[3] + cube.z_verts[4] + cube.z_verts[7]) / 4,
                   cube.x_verts[0], cube.y_verts[0], cube.z_verts[0],
                   cube.x_verts[3], cube.y_verts[3], cube.z_verts[3],
                   cube.x_verts[4], cube.y_verts[4], cube.z_verts[4],
-                  '103')
+                  '220')
         tri7 = ((cube.z_verts[0] + cube.z_verts[3] + cube.z_verts[4] + cube.z_verts[7]) / 4,
                   cube.x_verts[3], cube.y_verts[3], cube.z_verts[3],
                   cube.x_verts[4], cube.y_verts[4], cube.z_verts[4],
                   cube.x_verts[7], cube.y_verts[7], cube.z_verts[7],
-                  '103')
+                  '220')
 
         # bottom face
         tri8 = ((cube.z_verts[0] + cube.z_verts[1] + cube.z_verts[4] + cube.z_verts[5]) / 4,
                   cube.x_verts[0], cube.y_verts[0], cube.z_verts[0],
                   cube.x_verts[1], cube.y_verts[1], cube.z_verts[1],
                   cube.x_verts[5], cube.y_verts[5], cube.z_verts[5],
-                  '68')
+                  '213')
         tri9 = ((cube.z_verts[0] + cube.z_verts[1] + cube.z_verts[4] + cube.z_verts[5]) / 4,
                   cube.x_verts[0], cube.y_verts[0], cube.z_verts[0],
                   cube.x_verts[4], cube.y_verts[4], cube.z_verts[4],
                   cube.x_verts[5], cube.y_verts[5], cube.z_verts[5],
-                  '68')
+                  '213')
 
         # top face
         tri10 = ((cube.z_verts[2] + cube.z_verts[3] + cube.z_verts[6] + cube.z_verts[7]) / 4,
@@ -155,7 +153,7 @@ if __name__ == '__main__':
                   cube.x_verts[7], cube.y_verts[7], cube.z_verts[7],
                   '240')
 
-        # add all items to buffer
+        # add polygons to buffer
         graphics.add_buffer_item(tri0)
         graphics.add_buffer_item(tri1)
         graphics.add_buffer_item(tri2)
@@ -168,8 +166,9 @@ if __name__ == '__main__':
         graphics.add_buffer_item(tri9)
         graphics.add_buffer_item(tri10)
         graphics.add_buffer_item(tri11)
+       
         
-        
+        # add lines to buffer 
         graphics.add_buffer_item(line0)
         graphics.add_buffer_item(line1)
         graphics.add_buffer_item(line2)
@@ -183,8 +182,9 @@ if __name__ == '__main__':
         graphics.add_buffer_item(line10)
         graphics.add_buffer_item(line11)
         
+
         # update cube
-        cube.rotate_x(0.5)
+        cube.rotate_x(2)
         cube.rotate_y(1)
         cube.rotate_z(z)
          

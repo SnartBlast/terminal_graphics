@@ -1,4 +1,4 @@
-from kiwi import Kiwi
+from kiwi_noise import Kiwi
 import time
 
 if __name__ == '__main__':

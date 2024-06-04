@@ -6,14 +6,16 @@ import time
 import os
 
 if __name__ == '__main__':
-    graphics = Graphics(75, 78, '234', '214')
-    cube = Cube(37, 39, 0, 18)
+    graphics = Graphics(75, 78, '234', '13')
+    cube = Cube(37, 39, 0, 20)
 
     check_z = True
     z = 1.5
 
     # define all shape faces
     while True:
+        before = time.time() 
+
         # change z coordinate
         if (check_z):
             if (z < 2.5):
@@ -99,6 +101,7 @@ if __name__ == '__main__':
                   cube.x_verts[7], cube.y_verts[7], cube.z_verts[7],
                   '33')
 
+        '''
         # front face lines
         line0 = ((cube.z_verts[0] + cube.z_verts[1]) - 20.0, 
                   cube.x_verts[0], cube.y_verts[0], cube.z_verts[0],
@@ -153,6 +156,7 @@ if __name__ == '__main__':
                   cube.x_verts[7], cube.y_verts[7], cube.z_verts[7],
                   '240')
 
+        '''
         # add polygons to buffer
         graphics.add_buffer_item(tri0)
         graphics.add_buffer_item(tri1)
@@ -168,6 +172,7 @@ if __name__ == '__main__':
         graphics.add_buffer_item(tri11)
        
         
+        '''
         # add lines to buffer 
         graphics.add_buffer_item(line0)
         graphics.add_buffer_item(line1)
@@ -181,14 +186,22 @@ if __name__ == '__main__':
         graphics.add_buffer_item(line9)
         graphics.add_buffer_item(line10)
         graphics.add_buffer_item(line11)
+        '''
         
 
         # update cube
-        cube.rotate_x(2)
-        cube.rotate_y(1)
+        cube.rotate_x(2.5)
+        cube.rotate_y(1.5)
         cube.rotate_z(z)
-         
+        
+        # get time
+        after = time.time()
+
         # render graphics
         graphics.print()
         graphics.clear()
-        time.sleep(0.09)
+        time.sleep(0.1 - (after - before))
+
+
+
+

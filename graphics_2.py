@@ -185,8 +185,8 @@ class Graphics():
                 if (self.board[i][j] != self.background_color):
                     # if we're rendering a shape
                     screen += ESC + SHAPE + ''
-#                    screen += ESC + '[48;5;' + self.board[i][j] + 'm††'
-                    screen += ESC + '[48;5;' + self.board[i][j] + 'm  '
+                    screen += ESC + '[48;5;' + self.board[i][j] + 'm††'
+                    #screen += ESC + '[48;5;' + self.board[i][j] + 'm  '
                 else:
                     # if we're rendering background
                     screen += ESC + TEXT + ''
